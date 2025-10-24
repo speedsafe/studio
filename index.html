@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Speed Studio | Vehicle Customisation Melbourne</title>
+  <meta name="description" content="Premium vehicle customisation in Melbourne. Wraps, tint, paint protection, ambient lighting, starliner headliners, dash cams, detailing. Fast quotes and mobile service." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#0b0b0d; --panel:#111216; --panel-2:#0f1115; --text:#f5f7fb; --muted:#a7afc0; --brand:#ff2d55; --brand-2:#ff974a; --ok:#27c93f; --warn:#f5a524; --ring: 0 0 0 2px rgba(255,45,85,.25);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:radial-gradient(1200px 600px at 80% -10%,rgba(255,151,74,.08),transparent),radial-gradient(900px 400px at 10% -20%,rgba(255,45,85,.10),transparent),var(--bg);color:var(--text);}
+    a{color:inherit;text-decoration:none}
+    .container{width:min(1200px,92%);margin-inline:auto}
+
+    /* Header */
+    header{position:sticky;top:0;z-index:50;background:rgba(11,11,13,.7);backdrop-filter:blur(12px);border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:.85rem 0}
+    .logo{display:flex;align-items:center;gap:.75rem}
+    .logo svg{width:36px;height:36px}
+    .brand{font-weight:800;letter-spacing:.2px}
+    .pill{display:inline-flex;gap:.5rem;align-items:center;background:linear-gradient(90deg,var(--brand),var(--brand-2));color:#fff;padding:.75rem 1rem;border-radius:14px;font-weight:700;box-shadow:0 6px 24px rgba(255,45,85,.25)}
+    .ghost{display:inline-flex;gap:.5rem;align-items:center;padding:.75rem 1rem;border-radius:14px;border:1px solid rgba(255,255,255,.12);color:var(--text)}
+    .nav-actions{display:flex;gap:.6rem}
+
+    /* Hero */
+    .hero{position:relative;overflow:hidden}
+    .hero-inner{display:grid;grid-template-columns:1.1fr .9fr;gap:2rem;align-items:center;padding:4rem 0}
+    .badge{display:inline-grid;grid-auto-flow:column;gap:.5rem;align-items:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);padding:.5rem .75rem;border-radius:999px;font-size:.85rem;color:var(--muted)}
+    .title{font-size:clamp(2rem,6vw,3.5rem);line-height:1.05;margin:.6rem 0 1rem;font-weight:800}
+    .subtitle{color:var(--muted);font-size:1.05rem;max-width:58ch}
+    .hero-ctas{display:flex;gap:.8rem;margin-top:1.25rem;flex-wrap:wrap}
+    .hero-media{position:relative;background:linear-gradient(180deg,#101218, #0c0d12);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:1rem;box-shadow:0 20px 80px rgba(0,0,0,.45)}
+    .mock{aspect-ratio:16/10;border-radius:14px;overflow:hidden;display:grid;place-items:center;background:radial-gradient(800px 300px at 50% 0%,rgba(255,45,85,.2),transparent),url('https://images.unsplash.com/photo-1494976388531-d1058494cdd8?q=80&w=1200&auto=format&fit=crop') center/cover no-repeat}
+    .trust{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:1.25rem}
+    .trust .card{background:var(--panel);border:1px solid rgba(255,255,255,.06);padding:1rem;border-radius:12px;text-align:center;color:var(--muted)}
+
+    /* Sections */
+    section{padding:4rem 0;border-top:1px solid rgba(255,255,255,.06)}
+    .section-title{font-size:1.8rem;margin:0 0 1rem;font-weight:800}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .tile{background:var(--panel-2);padding:1.2rem;border:1px solid rgba(255,255,255,.06);border-radius:14px;min-height:150px}
+    .tile h3{margin:.25rem 0 .5rem;font-size:1.1rem}
+    .tile p{margin:0;color:var(--muted);font-size:.98rem}
+
+    /* Lead Form */
+    .lead{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem}
+    form{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:1rem;border-radius:16px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+    label{display:block;font-size:.9rem;color:var(--muted);margin:.35rem 0}
+    input,select,textarea{width:100%;background:#0c0d12;border:1px solid rgba(255,255,255,.12);color:var(--text);border-radius:12px;padding:.9rem;font:inherit}
+    input:focus,select:focus,textarea:focus{outline:none;box-shadow:var(--ring);border-color:var(--brand)}
+    textarea{min-height:120px;resize:vertical}
+
+    /* Social proof */
+    .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}
+    .review{background:var(--panel);border:1px solid rgba(255,255,255,.08);padding:1rem;border-radius:16px}
+    .stars{letter-spacing:.2ch}
+
+    /* CTA band */
+    .cta-band{display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:center;background:linear-gradient(90deg,rgba(255,45,85,.12),rgba(255,151,74,.12));border:1px solid rgba(255,255,255,.12);padding:1rem;border-radius:18px}
+
+    /* Footer */
+    footer{padding:2rem 0;color:var(--muted)}
+    .foot{display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
+
+    /* Mobile */
+    @media (max-width: 980px){
+      .hero-inner, .lead, .cta-band{grid-template-columns:1fr}
+      .grid-3, .reviews, .trust{grid-template-columns:1fr}
+      .row{grid-template-columns:1fr}
+      .hero-inner{padding:2.5rem 0 1.75rem}
+    }
+
+    /* Micro interactions */
+    .reveal{opacity:0;transform:translateY(16px);transition:all .6s cubic-bezier(.2,.8,.2,1)}
+    .reveal.show{opacity:1;transform:none}
+    .btn{cursor:pointer}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo" aria-label="Speed Studio home">
+        <!-- Minimal Speedometer SVG to echo SpeedSafeDash DNA -->
+        <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 38a24 24 0 1 1 48 0" stroke="url(#g)" stroke-width="4"/>
+          <defs>
+            <linearGradient id="g" x1="8" x2="56" y1="38" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ff2d55"/><stop offset="1" stop-color="#ff974a"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="40" r="4" fill="#fff"/>
+          <path d="M34 38l15-15" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span class="brand">Speed Studio</span>
+      </a>
+      <nav class="nav-actions">
+        <a class="ghost" href="#services">Services</a>
+        <a class="ghost" href="#work">Work</a>
+        <a class="ghost" href="#faq">FAQ</a>
+        <a class="pill" href="#quote">Get a quote</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <span class="badge">Melbourne • Mobile service • Lifetime workmanship warranty</span>
+          <h1 class="title">Premium vehicle customisation that looks factory and lasts</h1>
+          <p class="subtitle">Wraps, tint, paint protection, ambient lighting, starliner headliners, dash cams and detailing. We come to you across Melbourne. No shortcuts. No mess. Results that actually convert heads.</p>
+          <div class="hero-ctas">
+            <a href="#quote" class="pill btn">Get an instant quote</a>
+            <a href="tel:+61400000000" class="ghost btn">Call now</a>
+          </div>
+          <div class="trust">
+            <div class="card">60+ five star reviews</div>
+            <div class="card">Fully insured installers</div>
+            <div class="card">OEM grade materials</div>
+            <div class="card">After hours available</div>
+          </div>
+        </div>
+        <div class="hero-media reveal">
+          <div class="mock" role="img" aria-label="Customised performance car in studio light"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container reveal">
+      <h2 class="section-title">What we do</h2>
+      <div class="grid-3">
+        <div class="tile"><h3>Vehicle wraps</h3><p>Full and partial wraps with premium films. Paint-safe removal and edge finishing that holds up.</p></div>
+        <div class="tile"><h3>Window tint</h3><p>Legal VLT options with lifetime film warranty. Clean installs with zero contamination.</p></div>
+        <div class="tile"><h3>Paint protection</h3><p>PPF and ceramic packages that actually protect daily drivers. Proper prep, proper cure.</p></div>
+        <div class="tile"><h3>Ambient lighting</h3><p>Factory-style LED strips and controller integration. Hidden wiring, no rattles.</p></div>
+        <div class="tile"><h3>Starliner headliners</h3><p>Even fiber distribution. Dimmable, app control, OEM look in daylight.</p></div>
+        <div class="tile"><h3>Dash cams</h3><p>Front and rear hardwires, parking mode, clean looms. Cloud and LTE models supported.</p></div>
+      </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section id="work" class="container reveal">
+      <h2 class="section-title">Results customers talk about</h2>
+      <div class="reviews">
+        <div class="review"><div class="stars">★★★★★</div><p>Immaculate wrap. Panel edges are perfect. Came to my house and finished same day.</p><small>— Jason, Brunswick</small></div>
+        <div class="review"><div class="stars">★★★★★</div><p>Tint looks factory. No dust specks. Communication and timing were on point.</p><small>— Linda, Point Cook</small></div>
+        <div class="review"><div class="stars">★★★★★</div><p>Starliner is insane. Zero noise after weeks. Would recommend Speed Studio to anyone.</p><small>— Mark, St Kilda</small></div>
+      </div>
+    </section>
+
+    <!-- CTA BAND -->
+    <section class="container reveal">
+      <div class="cta-band">
+        <div>
+          <h2 class="section-title" style="margin:0">Serious about quality. Serious about service.</h2>
+          <p class="subtitle" style="margin:.25rem 0 0">Slots fill up fast. Lock your date now. We respond within minutes during business hours.</p>
+        </div>
+        <div style="text-align:right">
+          <a href="#quote" class="pill btn">Book my car</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEAD FORM -->
+    <section id="quote" class="container reveal">
+      <h2 class="section-title">Get an instant quote</h2>
+      <div class="lead">
+        <form id="leadForm" novalidate>
+          <div class="row">
+            <div>
+              <label for="name">Full name</label>
+              <input id="name" name="name" placeholder="Your name" required />
+            </div>
+            <div>
+              <label for="phone">Mobile</label>
+              <input id="phone" name="phone" placeholder="04xx xxx xxx" inputmode="tel" pattern="^0\d{9}$" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@email.com" required />
+            </div>
+            <div>
+              <label for="suburb">Suburb</label>
+              <input id="suburb" name="suburb" placeholder="e.g. Spotswood" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="make">Vehicle</label>
+              <input id="make" name="vehicle" placeholder="Make and model" required />
+            </div>
+            <div>
+              <label for="service">Service</label>
+              <select id="service" name="service" required>
+                <option value="">Select a service</option>
+                <option>Full wrap</option>
+                <option>Partial wrap</option>
+                <option>Window tint</option>
+                <option>PPF</option>
+                <option>Ambient lighting</option>
+                <option>Starliner headliner</option>
+                <option>Dash cams</option>
+                <option>Detailing</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="date">Preferred date</label>
+              <input id="date" name="date" type="date" />
+            </div>
+            <div>
+              <label for="budget">Budget</label>
+              <select id="budget" name="budget">
+                <option value="">Select budget</option>
+                <option>Under $500</option>
+                <option>$500–$1,000</option>
+                <option>$1,000–$2,500</option>
+                <option>$2,500+</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label for="message">Tell us what you want done</label>
+            <textarea id="message" name="message" placeholder="Colours, film, examples, deadlines"></textarea>
+          </div>
+          <div style="display:flex;gap:.75rem;align-items:center;margin-top:1rem;flex-wrap:wrap">
+            <button class="pill btn" type="submit">Get my quote</button>
+            <a class="ghost" href="tel:+61400000000">Or call 0400 000 000</a>
+          </div>
+          <p id="formNote" class="subtitle" style="margin:.75rem 0 0;display:none"></p>
+        </form>
+        <div>
+          <div class="tile" style="min-height:100%">
+            <h3>Why we convert</h3>
+            <ul style="margin:0 0 0 1rem;line-height:1.8;color:var(--muted)">
+              <li>Rapid quoting with real answers</li>
+              <li>Zero shortcuts on prep and finish</li>
+              <li>Lifetime workmanship warranty</li>
+              <li>Mobile service across Melbourne</li>
+              <li>Transparent pricing</li>
+            </ul>
+            <hr style="border-color:rgba(255,255,255,.08);margin:1rem 0">
+            <h3>Trading hours</h3>
+            <p style="color:var(--muted);margin:.25rem 0">Mon–Sat 8:00–18:00 • Sun by request</p>
+            <h3 style="margin-top:1rem">Payments</h3>
+            <p style="color:var(--muted);margin:.25rem 0">Card and bank transfer accepted</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container reveal">
+      <h2 class="section-title">FAQ</h2>
+      <div class="grid-3">
+        <div class="tile"><h3>How fast can you book me in</h3><p>Usually inside a week. If you are flexible we can often do sooner.</p></div>
+        <div class="tile"><h3>Do you remove trims</h3><p>Only when it is the right way to do the job. We never force brittle clips.</p></div>
+        <div class="tile"><h3>What areas do you cover</h3><p>Most of metro Melbourne. Tell us your suburb on the form and we will confirm.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container foot">
+      <div class="logo">
+        <svg viewBox="0 0 64 64" width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M8 38a24 24 0 1 1 48 0" stroke="url(#g2)" stroke-width="4"/>
+          <defs>
+            <linearGradient id="g2" x1="8" x2="56" y1="38" y2="14" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#ff2d55"/><stop offset="1" stop-color="#ff974a"/>
+            </linearGradient>
+          </defs>
+          <circle cx="32" cy="40" r="4" fill="#fff"/>
+          <path d="M34 38l15-15" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+        </svg>
+        <span>Speed Studio</span>
+      </div>
+      <small>© <span id="y"></span> Speed Studio. All rights reserved.</small>
+      <div style="display:flex;gap:.75rem">
+        <a class="ghost" href="#quote">Quote</a>
+        <a class="ghost" href="mailto:hello@speedstudio.au">Email</a>
+        <a class="ghost" href="tel:+61400000000">Call</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- LocalBusiness JSON-LD for better conversions in SERP -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoBodyShop",
+    "name": "Speed Studio",
+    "image": "https://example.com/logo.png",
+    "url": "https://speedstudio.au/",
+    "telephone": "+61 400 000 000",
+    "address": {"@type":"PostalAddress","addressLocality":"Melbourne","addressRegion":"VIC","addressCountry":"AU"},
+    "areaServed": "Melbourne",
+    "openingHours": "Mo-Sa 08:00-18:00"
+  }
+  </script>
+
+  <script>
+    // Year
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); io.unobserve(e.target); } });
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Simple client-side form validation + demo submit handler
+    const form = document.getElementById('leadForm');
+    const note = document.getElementById('formNote');
+    form.addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      if(!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form).entries());
+      // TODO: Replace with your endpoint. Example: fetch('https://api.yourdomain/lead', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)});
+      await new Promise(r=>setTimeout(r,600));
+      note.style.display = 'block';
+      note.textContent = 'Thanks. Your quote request has been received. We will call you shortly.';
+      form.reset();
+    });
+
+    // Sticky mobile quick actions
+    const btnBar = document.createElement('div');
+    btnBar.style.cssText = 'position:fixed;inset:auto 0 0;display:flex;gap:6px;padding:8px;background:rgba(11,11,13,.85);backdrop-filter:blur(8px);border-top:1px solid rgba(255,255,255,.08);z-index:60';
+    btnBar.innerHTML = `<a class="pill" style="flex:1;justify-content:center" href="#quote">Quote</a><a class="ghost" style="flex:1;justify-content:center" href="tel:+61400000000">Call</a>`;
+    const mq = window.matchMedia('(max-width: 640px)');
+    const toggle = () => btnBar.style.display = mq.matches ? 'flex' : 'none';
+    toggle();
+    mq.addEventListener('change', toggle);
+    document.body.appendChild(btnBar);
+  </script>
+</body>
+</html>
