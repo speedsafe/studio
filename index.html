@@ -131,11 +131,7 @@
       const KEY = 'coming2026';
       try {
         // 1) Try same-origin proxy path if you later add a rewrite on Vercel
-        let res = await fetch(`/counter/hit/${NS}/${KEY}`, { cache: 'no-store' });
-        if(!res.ok) {
-          // 2) Fallback to direct CountAPI
-          res = await fetch(`https://api.countapi.xyz/hit/${NS}/${KEY}`);
-        }
+        let res = await fetch(`https://api.countapi.xyz/hit/${NS}/${KEY}`);
         if(!res.ok) return; // hide silently
         const data = await res.json();
         if(data && typeof data.value === 'number'){
