@@ -5,18 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speed Studio — Coming 2026</title>
   <meta name="description" content="Speed Studio — the cinematic vehicle customisation arm of SpeedSafeDash. Coming 2026." />
-  <!-- Allow hosted counter API from a single HTML file via CSP meta -->
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.countapi.xyz; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self';" />
-  <!-- One-file build: all styles and scripts inline -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&family=Clash+Display:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root{ --ink:#f4f7ff; --muted:#a8c0ff; --blue:#3a8fff; --blue2:#00e0ff; }
     *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;background:#020409}
+    html,body{height:100%;color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;overflow:hidden}
 
-    /* Cinematic background */
     body{background:radial-gradient(1200px 600px at 80% -10%,rgba(0,209,255,.10),transparent),radial-gradient(1000px 600px at 0% 0%,rgba(43,130,255,.12),transparent),radial-gradient(circle at 50% 20%, #0b1120 0%, #020409 60%, #000000 100%);} 
     .vignette{position:fixed;inset:-10%;pointer-events:none;z-index:0;background:radial-gradient(closest-side,transparent 40%, rgba(0,0,0,.35) 100%);} 
     .halo,.glow{position:fixed;inset:-30% -30% auto -30%;height:80vh;pointer-events:none;filter:blur(30px);opacity:.28;z-index:0}
@@ -28,7 +24,8 @@
     .hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center}
     #stars{position:absolute;inset:0;z-index:1}
 
-    #content{position:relative;z-index:2;opacity:1;transform:none}
+    #content{position:relative;z-index:2;opacity:0;transform:translateY(8px) scale(.995);transition:opacity .6s cubic-bezier(.2,.8,.2,1), transform .6s cubic-bezier(.2,.8,.2,1)}
+    body.loaded #content{opacity:1;transform:none}
 
     .headline{font-family:"Clash Display",Inter,system-ui,sans-serif;font-weight:800;font-size:clamp(2.8rem,6vw,5.5rem);line-height:1.1;margin-bottom:1rem}
     .headline .grad{background:linear-gradient(90deg,var(--blue),var(--blue2),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shine 6s linear infinite}
@@ -41,7 +38,7 @@
     .btn:hover{transform:translateY(-2px);box-shadow:0 0 32px rgba(43,130,255,.25);background:linear-gradient(90deg,var(--blue),var(--blue2))}
     .btn:active{transform:translateY(0)}
 
-    .visits{margin-top:1rem;color:var(--muted);font-size:.95rem;min-height:1.25rem}
+    .visits{margin-top:1rem;color:var(--muted);font-size:.95rem}
   </style>
 </head>
 <body class="loaded">
@@ -63,12 +60,12 @@
   </section>
 
   <script>
-    // ===== Background starfield + meteors =====
     const canvas = document.getElementById('stars');
     const ctx = canvas.getContext('2d');
     const content = document.getElementById('content');
 
     let W, H, starsNear = [], starsFar = [], meteors = [];
+
     function resize(){
       W = canvas.width = innerWidth; H = canvas.height = innerHeight;
       const nFar = Math.max(140, Math.floor(W*H/18000));
@@ -110,7 +107,8 @@
     }
 
     window.addEventListener('mousemove', (e)=>{
-      const rx = (e.clientX/W - .5) * 6; const ty = (e.clientY/H - .5) * -6;
+      const rx = (e.clientX/W - .5) * 6;
+      const ty = (e.clientY/H - .5) * -6;
       content.style.transform = `translateZ(0) rotateX(${ty}deg) rotateY(${rx}deg)`;
     });
 
@@ -124,27 +122,22 @@
     }
     loop();
 
-    // ===== Global counter: try same-origin proxy, then CountAPI; hide if both fail =====
+    // Hosted CountAPI global counter
     const visitText = document.getElementById('visitText');
     const ord = (n)=>{const s=["th","st","nd","rd"], v=n%100; return n + (s[(v-20)%10]||s[v]||s[0]);};
 
     (async function globalCounter(){
-      const NS = 'studio.speedsafe.au';
-      const KEY = 'coming2026';
+      const namespace = 'speedstudio.speedsafe.au';
+      const key = 'coming2026';
       try {
-        // 1) Try same-origin proxy path if you later add a rewrite on Vercel
-        let res = await fetch(`/counter/hit/${NS}/${KEY}`, { cache: 'no-store' });
-        if(!res.ok) {
-          // 2) Fallback to direct CountAPI
-          res = await fetch(`https://api.countapi.xyz/hit/${NS}/${KEY}`);
-        }
-        if(!res.ok) return; // hide silently
+        const res = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+        if(!res.ok) return;
         const data = await res.json();
         if(data && typeof data.value === 'number'){
           visitText.textContent = `You are the ${ord(data.value)} person to view this page.`;
         }
-      } catch (_) {
-        // Fail silently — keep empty
+      } catch {
+        // Fail silently — hide counter
       }
     })();
   </script>
