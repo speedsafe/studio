@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Speed Studio — Coming 2026</title>
   <meta name="description" content="Speed Studio — the cinematic vehicle customisation arm of SpeedSafeDash. Coming 2026." />
+  <!-- Allow hosted counter API from a single HTML file via CSP meta -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://api.countapi.xyz; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; script-src 'self';" />
   <!-- One-file build: all styles and scripts inline -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -127,11 +129,15 @@
     const ord = (n)=>{const s=["th","st","nd","rd"], v=n%100; return n + (s[(v-20)%10]||s[v]||s[0]);};
 
     (async function globalCounter(){
-      const NS = 'speedstudio.speedsafe.au';
+      const NS = 'studio.speedsafe.au';
       const KEY = 'coming2026';
       try {
         // 1) Try same-origin proxy path if you later add a rewrite on Vercel
-        let res = await fetch(`https://api.countapi.xyz/hit/${NS}/${KEY}`);
+        let res = await fetch(`/counter/hit/${NS}/${KEY}`, { cache: 'no-store' });
+        if(!res.ok) {
+          // 2) Fallback to direct CountAPI
+          res = await fetch(`https://api.countapi.xyz/hit/${NS}/${KEY}`);
+        }
         if(!res.ok) return; // hide silently
         const data = await res.json();
         if(data && typeof data.value === 'number'){
