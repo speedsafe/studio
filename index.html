@@ -31,10 +31,15 @@
     .headline .grad{background:linear-gradient(90deg,var(--blue),var(--blue2),var(--blue));-webkit-background-clip:text;background-clip:text;color:transparent;background-size:200% 100%;animation:shine 6s linear infinite}
     @keyframes shine{0%{background-position:0% 50%}100%{background-position:200% 50%}}
 
-    .sub{font-size:1.1rem;color:var(--muted);max-width:60ch;margin:auto;opacity:.95}
+    .sub{font-size:1.1rem;color:var(--muted);max-width:60ch;margin:auto;opacity:.95;margin-bottom:1rem}
 
-    .contact{margin-top:2rem;display:flex;gap:1rem;justify-content:center}
-    .btn{padding:0.9rem 1.5rem;border-radius:14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.035);color:var(--ink);font-weight:600;text-decoration:none;backdrop-filter:blur(10px);transition:transform .2s ease, box-shadow .3s ease, background .3s ease}
+    .social{margin:1.5rem 0;}
+    .social p{font-size:1rem;color:var(--muted);margin-bottom:0.5rem;letter-spacing:0.5px;}
+    .social a{display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.05);fill:var(--ink);transition:transform .3s ease, fill .3s ease, box-shadow .3s ease;margin:0.5rem;}
+    .social a:hover{transform:scale(1.15);fill:var(--blue2);box-shadow:0 0 15px rgba(0,224,255,.4);background:rgba(0,224,255,.08);}
+
+    .contact{margin-top:0.5rem;display:flex;gap:1rem;justify-content:center;align-items:center;flex-wrap:wrap}
+    .btn{padding:0.9rem 1.5rem;border-radius:14px;border:1px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.035);color:var(--ink);font-weight:600;text-decoration:none;backdrop-filter:blur(10px);transition:transform .2s ease, box-shadow .3s ease, background .3s ease;display:flex;align-items:center;gap:0.5rem}
     .btn:hover{transform:translateY(-2px);box-shadow:0 0 32px rgba(43,130,255,.25);background:linear-gradient(90deg,var(--blue),var(--blue2))}
     .btn:active{transform:translateY(0)}
 
@@ -51,6 +56,12 @@
     <div id="content">
       <h1 class="headline">Speed Studio<br><span class="grad">Coming 2026</span></h1>
       <p class="sub">A cinematic automotive experience from SpeedSafeDash.</p>
+      <div class="social">
+        <p>Stay up to date — follow us on Instagram</p>
+        <a href="https://instagram.com/speedsafe.studio" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24"><path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5zm4.25 3A5.75 5.75 0 1 1 6.25 12a5.76 5.76 0 0 1 5.75-5.75zm0 1.5A4.25 4.25 0 1 0 16.25 12 4.25 4.25 0 0 0 12 8zm5.25-1.75a1 1 0 1 1 1 1 1 1 0 0 1-1-1z"/></svg>
+        </a>
+      </div>
       <div class="contact">
         <a class="btn" href="mailto:hello@speedsafe.au">hello@speedsafe.au</a>
         <a class="btn" href="tel:+61435088018">0435 088 018</a>
@@ -122,7 +133,6 @@
     }
     loop();
 
-    // Hosted CountAPI global counter
     const visitText = document.getElementById('visitText');
     const ord = (n)=>{const s=["th","st","nd","rd"], v=n%100; return n + (s[(v-20)%10]||s[v]||s[0]);};
 
